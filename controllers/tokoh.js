@@ -3,7 +3,7 @@ const Tokoh = db.tokohs;
 const { Sequelize } = require('sequelize');
 
 exports.create = async (req, res) => {
-    if (req.body.image || req.body.nama) {
+    if (!req.body.image || !req.body.nama) {
         res.status(400).send({
             status: 400,
             message: "Sepertinya ada data yang kosong, coba ulang dan tidak boleh kosong!",

@@ -22,5 +22,7 @@ db.sequelize = sequelize;
 db.quizs = require('./quiz')(sequelize, Sequelize);
 db.details = require('./detail')(sequelize, Sequelize);
 db.tokohs = require('./tokoh')(sequelize, Sequelize);
+db.peristiwas = require('./peristiwa')(sequelize, Sequelize);
+db.users = require('./user')(sequelize, Sequelize);
 
 module.exports = db;

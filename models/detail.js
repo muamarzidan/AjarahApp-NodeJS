@@ -32,6 +32,10 @@ module.exports = (sequelize, Sequelize) => {
         deskripsi: {
             type: Sequelize.STRING,
             allowNull: false
+        },
+        id_tokoh: {
+            type: Sequelize.INTEGER,
+            allowNull: false
         }
     });
     return Detail;

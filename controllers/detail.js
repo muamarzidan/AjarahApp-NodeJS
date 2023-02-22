@@ -3,7 +3,7 @@ const Detail = db.details;
 const { Sequelize } = require('sequelize');
 
 exports.create = async (req, res) => {
-    if (req.body.image || req.body.nama || req.body.pasangan || req.body.tempat_lahir || req.body.tanggal_lahir || req.body.wafat || req.body.deskripsi) {
+    if (!req.body.image || !req.body.nama || !req.body.pasangan || !req.body.tempat_lahir || !req.body.tanggal_lahir || !req.body.wafat || !req.body.deskripsi) {
         res.status(400).send({
             status: 400,
             message: "Sepertinya ada data yang kosong, coba ulang dan tidak boleh kosong!",
