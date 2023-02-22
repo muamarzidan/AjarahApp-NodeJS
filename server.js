@@ -18,8 +18,8 @@ app.get('/', (req, res) => {
     res.send('Hello World!');
 })
 
-app.use('api/quizzes', quizRoute);
-app.use('api/jobsheet', jobsheetRoute);
+app.use('/api/quiz', quizRoute);
+app.use('/api/jobsheet', jobsheetRoute);
 
 app.listen(port, () => {
     console.log(`Server running on port ${port}`)
