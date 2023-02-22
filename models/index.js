@@ -20,5 +20,7 @@ const db = {};
 db.Sequelize = Sequelize;
 db.sequelize = sequelize;
 db.quizs = require('./quiz')(sequelize, Sequelize);
+db.details = require('./detail')(sequelize, Sequelize);
+db.tokohs = require('./tokoh')(sequelize, Sequelize);
 
 module.exports = db;
