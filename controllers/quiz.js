@@ -30,6 +30,13 @@ exports.create = async (req, res) => {
 }
 
 exports.getAll = async (req, res) => {
+    const id = req.params.id;
+    const num = await Quiz.count({ where: { id: id } });
+
+    if (num == 0) {
+        res.status(404).send({ status: 404, message: `Data tidak ditemukan, sepertinya anda belum menambahkan data quiz`, data: null });
+        return;
+    }
     try {
         const seeQuiz = await Quiz.findAll();
         res.status(200).send({ status: 200, message: "Suksess, Semua data Quiz berhasil ditemukan", data: seeQuiz });
