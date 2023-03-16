@@ -5,10 +5,10 @@ module.exports = (sequelize, Sequelize) => {
             autoIncrement: true,
             primaryKey: true
         },
-        image: {
-            type: Sequelize.BLOB('long'),
-            allowNull: false
-        },
+        // image: {
+        //     type: Sequelize.BLOB('long'),
+        //     allowNull: false
+        // },
         nama: {
             type: Sequelize.STRING,
             allowNull: false
@@ -32,11 +32,11 @@ module.exports = (sequelize, Sequelize) => {
         deskripsi: {
             type: Sequelize.STRING,
             allowNull: false
-        },
-        id_tokoh: {
-            type: Sequelize.INTEGER,
-            allowNull: false
         }
+        // id_tokoh: {
+        //     type: Sequelize.INTEGER,
+        //     allowNull: true
+        // }
     });
     return Detail;
 };
