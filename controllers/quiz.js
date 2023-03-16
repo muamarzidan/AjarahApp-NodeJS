@@ -23,15 +23,14 @@ exports.create = async (req, res) => {
 
     try {
         const newQuiz = await Quiz.create(quiz);
-        res.status(201).send({ status: 201, message: "Suksess, Data quiz berhasil ditambahkan", data: newQuiz });
+        res.json({ status: 201, message: "Suksess, Data quiz berhasil ditambahkan", data: newQuiz });
     }catch (error) {
         res.status(500).send({ status: 500, message: error.message || "Server Error", data: null });
     }
 }
 
 exports.getAll = async (req, res) => {
-    const id = req.params.id;
-    const num = await Quiz.count({ where: { id: id } });
+    const num = await Quiz.findAll();
 
     if (num == 0) {
         res.status(404).send({ status: 404, message: `Data tidak ditemukan, sepertinya anda belum menambahkan data quiz`, data: null });

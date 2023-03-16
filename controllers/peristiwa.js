@@ -27,11 +27,9 @@ exports.create = (req, res) => {
 };
 
 exports.getAll = async (req, res) => {
-    const id = req.params.id;
-    const num = await Quiz.count({ where: { id: id } });
-
+    const num = await Peristiwa.findAll();
     if (num == 0) {
-        res.status(404).send({ status: 404, message: `Data tidak ditemukan, sepertinya anda belum menambahkan data quiz`, data: null });
+        res.status(404).send({ status: 404, message: `Data tidak ditemukan, sepertinya anda belum menambahkan data Peristiwa`, data: null });
         return;
     }
     try {
