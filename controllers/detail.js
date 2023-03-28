@@ -8,29 +8,29 @@ const { v4: uuidv4 } = require('uuid');
 const fs = require('fs');
 const path = require('path');
   
-  exports.create = async (req, res) => {
-    try {
-      const { nama, pasangan, tempat_lahir, tanggal_lahir, wafat, deskripsi } = req.body;
-      const image = req.file ? req.file.filename : null;
-      if (!nama || !pasangan || !tempat_lahir || !tanggal_lahir || !wafat || !deskripsi || !image) {
-        res.json({ status: 400, message: "Data tidak lengkap", data: null });
-        return;
-      }
-  
-      const createDetail = await Detail.create({
-        nama,
-        pasangan,
-        tempat_lahir,
-        tanggal_lahir,
-        wafat,
-        deskripsi,
-        image,
-      });
-      res.json({ status: 201, message: "Data berhasil dibuat", data: createDetail });
-    } catch (error) {
-      res.status(500).json({ status: 500, message: error.message || "Server Error", data: null });
+exports.create = async (req, res) => {
+  try {
+    const { nama, pasangan, tempat_lahir, tanggal_lahir, wafat, deskripsi } = req.body;
+    const image = req.file ? req.file.filename : null;
+    if (!nama || !pasangan || !tempat_lahir || !tanggal_lahir || !wafat || !deskripsi || !image) {
+      res.json({ status: 400, message: "Data tidak lengkap", data: null });
+      return;
     }
-  };
+
+    const createDetail = await Detail.create({
+      nama,
+      pasangan,
+      tempat_lahir,
+      tanggal_lahir,
+      wafat,
+      deskripsi,
+      image,
+    });
+    res.json({ status: 201, message: "Data berhasil dibuat", data: createDetail });
+  } catch (error) {
+    res.status(500).json({ status: 500, message: error.message || "Server Error", data: null });
+  }
+};
 
 exports.getById = async (req, res) => {
     try {

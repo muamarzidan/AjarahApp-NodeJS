@@ -6,7 +6,7 @@ module.exports = (sequelize, Sequelize) => {
             primaryKey: true
         },
         image: {
-            type: Sequelize.STRING,
+            type: Sequelize.STRING, 
             allowNull: false
         },
         kejadian: {

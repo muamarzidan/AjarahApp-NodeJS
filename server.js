@@ -18,7 +18,6 @@ const fileStorage = multer.diskStorage({
       cb(null, "images");
     },
     filename: function (req, file, cb) {
-      // const uniqueSuffix = Date.now() + "-" + Math.round(Math.random() * 1e9);
       cb(null, new Date().getTime() + "-" + file.originalname);
     }
   });
