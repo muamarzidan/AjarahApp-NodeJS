@@ -1,43 +1,102 @@
 const db = require("../models");
 const Peristiwa = db.peristiwas;
-const { Sequelize } = require("sequelize");
 
-// Create and Save a new Peristiwa
-exports.create = (req, res) => {
+exports.create = async (req, res) => {
     // Validate request
-    if (!req.body.image || !req.body.kejadian || !req.body.deskripsi) {
-        res.status(400).send({
+    if (!req.file) {
+      res.status(400).send({
         status: 400,
-        message: "Sepertinya ada data yang kosong, coba ulang dan tidak boleh kosong!",
+        message: "Data tidak lengkap",
         data: null,
-        });
-        return;
+      });
+      return;
     }
-    const peristiwa = {
-        image: req.body.image,
-        kejadian: req.body.kejadian,
-        deskripsi: req.body.deskripsi,
-    };
+    
+    const image = req.file.path;
+    // const imageBuffer = image.buffer;
+    const kejadian = req.body.kejadian;
+    const deskripsi = req.body.deskripsi;
+
+
+  
+    // Convert image to base64
+    // const imageBase64 = Buffer.from(imageBuffer).toString('base64');
+  
     try {
-        const newPeristiwa = Peristiwa.create(peristiwa);
-        res.status(201).send({ status: 201, message: "Suksess, Data peristiwa berhasil ditambahkan", data: newPeristiwa});
+      // tambahkan record ke database
+      const newPeristiwa = await Peristiwa.create({
+        image: image,
+        kejadian: kejadian,
+        deskripsi: deskripsi,
+      });
+  
+      res.status(201).send({
+        status: 201,
+        message: "Sukses, Data peristiwa berhasil ditambahkan",
+        data: newPeristiwa,
+      });
     } catch (error) {
-        res.status(500).send({ status: 500, message: error.message || "Server Error", data: null,});
+      console.error(error);
+      res.status(500).send({
+        status: 500,
+        message: error.message || "Server Error",
+        data: null,
+      });
     }
-};
+  };
+
+// exports.create = (req, res) => {
+//     // Validate request
+//     if (!req.file || !req.body.kejadian || !req.body.deskripsi) {
+//         res.status(400).send({
+//         status: 400,
+//         message: "Sepertinya ada data yang kosong, coba ulang dan tidak boleh kosong!",
+//         data: null,
+//         });
+//         return;
+//     }
+//     const peristiwa = {
+//         image: req.body.image,
+//         kejadian: req.body.kejadian,
+//         deskripsi: req.body.deskripsi,
+//     };
+//     try {
+//         const newPeristiwa = Peristiwa.create(peristiwa);
+//         res.status(201).send({ status: 201, message: "Suksess, Data peristiwa berhasil ditambahkan", data: newPeristiwa});
+//     } catch (error) {
+//         res.status(500).send({ status: 500, message: error.message || "Server Error", data: null,});
+//     }
+// };
 
 exports.getAll = async (req, res) => {
-    const num = await Peristiwa.findAll();
-    if (num == 0) {
-        res.status(404).send({ status: 404, message: `Data tidak ditemukan, sepertinya anda belum menambahkan data Peristiwa`, data: null });
-        return;
-    }
     try {
-        const seePeristiwa = await Peristiwa.findAll();
-        res.status(200).send({ status: 200, message: "Suksess, Semua data Peristiwa berhasil ditemukan", data: seePeristiwa });
-    } catch (error) {
-        res.status(500).send({ status: 500, message: error.message || "Server Error", data: null });
-    }
+        // ambil semua data peristiwa dari database
+        const peristiwas = await Peristiwa.findAll();
+    
+        // // tambahkan base64 encoded image ke setiap peristiwa
+        // const peristiwasWithEncodedImage = peristiwas.map((peristiwa) => {
+        //   const encodedImage = Buffer.from(peristiwa.image).toString("base64");
+        //   return {
+        //     id: peristiwa.id,
+        //     kejadian: peristiwa.kejadian,
+        //     deskripsi: peristiwa.deskripsi,
+        //     image: encodedImage,
+        //   };
+        // });
+    
+        res.status(200).send({
+          status: 200,
+          message: "Sukses, Data peristiwa berhasil ditemukan",
+          data: peristiwas,
+        });
+      } catch (error) {
+        console.error(error);
+        res.status(500).send({
+          status: 500,
+          message: error.message || "Server Error",
+          data: null,
+        });
+      }
 }
 
 exports.getById = async (req, res) => {

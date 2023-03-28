@@ -1,12 +1,12 @@
 module.exports = (sequelize, Sequelize) => {
-    const Peristiwa = sequelize.define("persitiwa", {
+    const Peristiwa = sequelize.define("peristiwa", {
         id: {
             type: Sequelize.INTEGER,
             autoIncrement: true,
             primaryKey: true
         },
         image: {
-            type: Sequelize.BLOB('long'),
+            type: Sequelize.STRING,
             allowNull: false
         },
         kejadian: {
