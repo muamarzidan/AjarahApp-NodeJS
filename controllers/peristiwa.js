@@ -26,15 +26,15 @@ exports.create = async (req, res) => {
 
 exports.getAll = async (req, res) => {
   try {
-      const peristiwas = await Peristiwa.findAll();
-      if (peristiwas.length == 0) {
-        res.status(404).send({ status: 404, message: "Permintaan anda sukses diproses, Tapi data peristiwa belum ada", data: null });
-        return;
-      }
-      res.json({ status: 200, message: "Permintaan anda sukses diproses, Data peristiwa berhasil ditemukan", data: peristiwas});
-    } catch (error) {
-      console.error(error);
-      res.json({ status: 500, message: error.message || "Server Error", data: null});
+    const peristiwas = await Peristiwa.findAll();
+    if (peristiwas.length == 0) {
+      res.status(404).send({ status: 404, message: "Permintaan anda sukses diproses, Tapi data peristiwa belum ada", data: null });
+      return;
+    }
+    res.json({ status: 200, message: "Permintaan anda sukses diproses, Data peristiwa berhasil ditemukan", data: peristiwas});
+  } catch (error) {
+    console.error(error);
+    res.json({ status: 500, message: error.message || "Server Error", data: null});
   };
 };
 
@@ -49,8 +49,8 @@ exports.getById = async (req, res) => {
     return;
   }
   try {
-      const OnePeristiwa = await Peristiwa.findByPk(id, { rejectOnEmpty: true });
-      res.json({ status: 200, message: `Permintaan anda sukses diproses, data dengan ${id} berhasil ditemukan`, data: OnePeristiwa });
+    const OnePeristiwa = await Peristiwa.findByPk(id, { rejectOnEmpty: true });
+    res.json({ status: 200, message: `Permintaan anda sukses diproses, data dengan ${id} berhasil ditemukan`, data: OnePeristiwa });
   } catch (error){
       res.status(500).send({ status: 500, message: error.message || "Server Error", data: null });
   };

@@ -55,7 +55,7 @@ app.get('/', (req, res) => {
 app.use('/api/quiz', quizRoute);
 app.use('/api/jobsheet', jobsheetRoute);
 app.use('/api/user', userRoute);
-app.use('/api/tokoh', tokohRoute);
+app.use('/api/pahlawan', tokohRoute);
 app.use('/api/peristiwa', peristiwaRoute);
 app.use('/api/detail', detailRoute);
 

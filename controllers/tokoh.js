@@ -23,16 +23,15 @@ exports.create = async (req, res) => {
 }
 
 exports.getAll = async (req, res) => {
-    const tokos = await Tokoh.findAll();
-    if (tokos.length == 0) {
-        res.status(404).json({ status: 404, message: `Data tidak ditemukan, sepertinya anda belum menambahkan data Tokoh`, data: null });
-        return;
-    }
     try {
-        const seeTokoh = await Tokoh.findAll();
-        res.status(200).send({ status: 200, message: "Suksess, Semua data Tokoh berhasil ditemukan", data: seeTokoh });
+    const tokos = await Tokoh.findAll();
+        if (tokos.length == 0) {
+            res.status(404).json({ status: 404, message: `Data tidak ditemukan, sepertinya anda belum menambahkan data Tokoh`, data: null });
+            return;
+        }
+        res.status(200).json({ status: 200, message: "Suksess, Semua data Tokoh berhasil ditemukan", data: seeTokoh });
     } catch (error) {
-        res.status(500).send({ status: 500, message: error.message || "Server Error", data: null });
+        res.status(500).json({ status: 500, message: error.message || "Server Error", data: null });
     }
 }
 
