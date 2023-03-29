@@ -3,11 +3,7 @@ const Peristiwa = db.peristiwas;
 
 exports.create = async (req, res) => {
   if (!req.file || !req.body.kejadian || !req.body.deskripsi) {
-    res.status(400).send({
-      status: 400,
-      message: "Sepertinya ada data yang tidak lengkap",
-      data: null,
-    });
+    res.status(400).send({ status: 400, message: "Sepertinya ada data yang tidak lengkap", data: null });
     return;
   }
   const NewPeristiwa = {
@@ -32,11 +28,7 @@ exports.getAll = async (req, res) => {
   try {
       const peristiwas = await Peristiwa.findAll();
       if (peristiwas.length == 0) {
-        res.status(404).send({
-          status: 404,
-          message: "Permintaan anda sukses diproses, Tapi data peristiwa belum ada",
-          data: null,
-        });
+        res.status(404).send({ status: 404, message: "Permintaan anda sukses diproses, Tapi data peristiwa belum ada", data: null });
         return;
       }
       res.json({ status: 200, message: "Permintaan anda sukses diproses, Data peristiwa berhasil ditemukan", data: peristiwas});
@@ -50,11 +42,11 @@ exports.getById = async (req, res) => {
   const id = req.params.id;
   const num = await Peristiwa.count({ where: { id: id } });
   if (isNaN(id)) {
-      res.status(400).send({ status: 400, message: "Id harus berupa angka", data: null });
-      return;
+    res.status(400).send({ status: 400, message: "Id harus berupa angka", data: null });
+    return;
   } else if (num == 0) {
-      res.status(404).json({ status: 404, message: `Data dengan id ${id} tidak ditemukan`, data: null });
-      return;
+    res.status(404).json({ status: 404, message: `Data dengan id ${id} tidak ditemukan`, data: null });
+    return;
   }
   try {
       const OnePeristiwa = await Peristiwa.findByPk(id, { rejectOnEmpty: true });
@@ -87,11 +79,11 @@ exports.update = async (req, res) => {
     const {id} = req.params;
     const num = await Peristiwa.count({ where: { id: id } });
     if (isNaN(id)) {
-        res.status(400).json({ status: 400, message: "Id harus berupa angka", data: null });
-        return;
+      res.status(400).json({ status: 400, message: "Id harus berupa angka", data: null });
+      return;
     } else if (num == 0) {
-        res.json({ status: 404, message: `Data dengan id ${id} tidak ditemukan`, data: null });
-        return;
+      res.json({ status: 404, message: `Data dengan id ${id} tidak ditemukan`, data: null });
+      return;
     }
     const { kejadian, deskripsi } = req.body;
     const image = req.file ? req.file.path : null;
@@ -112,7 +104,6 @@ exports.update = async (req, res) => {
         },
       }
     );
-
     res.json({ status: 200, message: `Permintaan anda sukses diproses, data dengan id ke${id} berhasil diperbarui`, data: updatedPeristiwa });
   } catch (error) {
     res.status(500).json({ status: 500, message: error.message || "Server Error", data: null });
@@ -124,16 +115,16 @@ exports.delete = async (req, res) => {
     const id = req.params.id;
     const num = await Peristiwa.count({ where: { id: id } });
     if (isNaN(id)) {
-        res.status(400).json({ status: 400, message: "Id harus berupa angka", data: null });
-        return;
+      res.status(400).json({ status: 400, message: "Id harus berupa angka", data: null });
+      return;
     } else if (num == 0) {
-        res.status(404).json({ status: 404, message: `Data dengan id ${id} tidak ditemukan`, data: null });
-        return;
+      res.status(404).json({ status: 404, message: `Data dengan id ${id} tidak ditemukan`, data: null });
+      return;
     }
     try {
-        const deletePeristiwa = await Peristiwa.destroy({ where: { id: id } });
-        res.json({ status: 200, message: `Permintaan anda sukses diproses, data dengan id ${id} berhasil dihapus`, data: deletePeristiwa });
+      const deletePeristiwa = await Peristiwa.destroy({ where: { id: id } });
+      res.json({ status: 200, message: `Permintaan anda sukses diproses, data dengan id ${id} berhasil dihapus`, data: deletePeristiwa });
     } catch (error) {
-        res.json({ status: 500, message: error.message || "Server Error", data: null });
+      res.json({ status: 500, message: error.message || "Server Error", data: null });
     }
 }
