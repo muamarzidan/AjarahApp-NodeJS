@@ -5,12 +5,12 @@ exports.create = async (req, res) => {
   if (!req.file || !req.body.kejadian || !req.body.deskripsi) {
     res.status(400).send({
       status: 400,
-      message: "Sepertnya ada data yang tidak lengkap",
+      message: "Sepertinya ada data yang tidak lengkap",
       data: null,
     });
     return;
   }
-  const peristiwa = {
+  const NewPeristiwa = {
     image: req.file.path,
     kejadian: req.body.kejadian,
     deskripsi: req.body.deskripsi,
@@ -20,8 +20,8 @@ exports.create = async (req, res) => {
   // const imageBase64 = Buffer.from(image).toString('base64');
 
   try {
-    const newPeristiwa = await Peristiwa.create(peristiwa);
-    res.status(201).send({ status: 201, message: "Permintaan anda sukses diproses, Data peristiwa berhasil ditambahkan", data: newPeristiwa });
+    const CreatePeristiwa = await Peristiwa.create(NewPeristiwa);
+    res.status(201).send({ status: 201, message: "Permintaan anda sukses diproses, Data peristiwa berhasil ditambahkan", data: CreatePeristiwa });
   } catch (error) {
     console.error(error);
     res.json({ status: 500, message: error.message || "Server Error", data: null });
@@ -58,7 +58,7 @@ exports.getById = async (req, res) => {
   }
   try {
       const OnePeristiwa = await Peristiwa.findByPk(id, { rejectOnEmpty: true });
-      res.json({ status: 200, message: `Suksess data dengan ${id} berhasil ditemukan`, data: OnePeristiwa });
+      res.json({ status: 200, message: `Permintaan anda sukses diproses, data dengan ${id} berhasil ditemukan`, data: OnePeristiwa });
   } catch (error){
       res.status(500).send({ status: 500, message: error.message || "Server Error", data: null });
   };
@@ -113,7 +113,7 @@ exports.update = async (req, res) => {
       }
     );
 
-    res.json({ status: 200, message: `Data dengan id ke${id} berhasil diperbarui`, data: updatedPeristiwa });
+    res.json({ status: 200, message: `Permintaan anda sukses diproses, data dengan id ke${id} berhasil diperbarui`, data: updatedPeristiwa });
   } catch (error) {
     res.status(500).json({ status: 500, message: error.message || "Server Error", data: null });
   }
@@ -132,7 +132,7 @@ exports.delete = async (req, res) => {
     }
     try {
         const deletePeristiwa = await Peristiwa.destroy({ where: { id: id } });
-        res.json({ status: 200, message: `Suksess data dengan id ${id} berhasil dihapus`, data: deletePeristiwa });
+        res.json({ status: 200, message: `Permintaan anda sukses diproses, data dengan id ${id} berhasil dihapus`, data: deletePeristiwa });
     } catch (error) {
         res.json({ status: 500, message: error.message || "Server Error", data: null });
     }

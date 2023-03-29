@@ -1,24 +1,22 @@
 const db = require('../models');
 const Tokoh = db.tokohs;
-const { Sequelize } = require('sequelize');
 
 exports.create = async (req, res) => {
-    if (!req.body.image || !req.body.nama) {
-        res.status(400).send({
+    if (!req.file || !req.body.nama) {
+        res.status(400).json({
             status: 400,
             message: "Sepertinya ada data yang kosong, coba ulang dan tidak boleh kosong!",
             data: null
         });
         return;
     }
-    const tokoh = {
-        image: req.body.image,
+    const NewTokoh = {
+        image: req.file.path,
         nama: req.body.nama
     };
-
     try {
-        const newTokoh = await Tokoh.create(tokoh);
-        res.status(201).send({ status: 201, message: "Suksess, Data tokoh berhasil ditambahkan", data: newTokoh });
+        const CreateTokoh = await Tokoh.create(NewTokoh);
+        res.status(201).json({ status: 201, message: "Permintaan anda sukses diproses, data tokoh berhasil ditambahkan", data: CreateTokoh });
     }catch (error) {
         res.status(500).send({ status: 500, message: error.message || "Server Error", data: null });
     }
@@ -26,7 +24,6 @@ exports.create = async (req, res) => {
 
 exports.getAll = async (req, res) => {
     const num = await Tokoh.findAll();
-
     if (num == 0) {
         res.status(404).send({ status: 404, message: `Data tidak ditemukan, sepertinya anda belum menambahkan data Tokoh`, data: null });
         return;
