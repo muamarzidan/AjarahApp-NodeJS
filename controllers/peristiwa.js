@@ -33,7 +33,6 @@ exports.getAll = async (req, res) => {
     }
     res.json({ status: 200, message: "Permintaan anda sukses diproses, Data peristiwa berhasil ditemukan", data: peristiwas});
   } catch (error) {
-    console.error(error);
     res.json({ status: 500, message: error.message || "Server Error", data: null});
   };
 };
@@ -52,7 +51,7 @@ exports.getById = async (req, res) => {
     const OnePeristiwa = await Peristiwa.findByPk(id, { rejectOnEmpty: true });
     res.json({ status: 200, message: `Permintaan anda sukses diproses, data dengan ${id} berhasil ditemukan`, data: OnePeristiwa });
   } catch (error){
-      res.status(500).send({ status: 500, message: error.message || "Server Error", data: null });
+      res.send({ status: 500, message: error.message || "Server Error", data: null });
   };
 };
 
@@ -87,26 +86,14 @@ exports.update = async (req, res) => {
     }
     const { kejadian, deskripsi } = req.body;
     const image = req.file ? req.file.path : null;
-    
     if (!kejadian || !deskripsi || !image) {
       res.status(400).json({ status: 400, message: "Data tidak lengkap", data: null });
       return;
     }
-    const updatedPeristiwa = await Peristiwa.update(
-      {
-        kejadian,
-        deskripsi,
-        image,
-      },
-      {
-        where: {
-          id: id,
-        },
-      }
-    );
+    const updatedPeristiwa = await Peristiwa.update({ kejadian, deskripsi, image, },{ where: { id: id }});
     res.json({ status: 200, message: `Permintaan anda sukses diproses, data dengan id ke${id} berhasil diperbarui`, data: updatedPeristiwa });
   } catch (error) {
-    res.status(500).json({ status: 500, message: error.message || "Server Error", data: null });
+    res.json({ status: 500, message: error.message || "Server Error", data: null });
   }
 };
 
