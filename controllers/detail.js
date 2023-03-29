@@ -4,12 +4,11 @@ const Detail = db.details;
 exports.create = async (req, res) => {
   try {
     const { nama, pasangan, tempat_lahir, tanggal_lahir, wafat, deskripsi } = req.body;
-    const image = req.file ? req.file.filename : null;
+    const image = req.file;
     if (!nama || !pasangan || !tempat_lahir || !tanggal_lahir || !wafat || !deskripsi || !image) {
-      res.json({ status: 400, message: "Data tidak lengkap", data: null });
+      res.status(400).json({ status: 400, message: "Sepertinya ada data yang tidak lengkap", data: null });
       return;
     }
-
     const createDetail = await Detail.create({
       nama,
       pasangan,
@@ -19,9 +18,9 @@ exports.create = async (req, res) => {
       deskripsi,
       image,
     });
-    res.json({ status: 201, message: "Data berhasil dibuat", data: createDetail });
+    res.status(201).json({ status: 201, message: "Permintaan anda sukses diproses, Data berhasil dibuat", data: createDetail });
   } catch (error) {
-    res.status(500).json({ status: 500, message: error.message || "Server Error", data: null });
+    res.json({ status: 500, message: error.message || "Server Error", data: null });
   }
 };
 
@@ -63,21 +62,9 @@ exports.getById = async (req, res) => {
   exports.getAll = async (req, res) => {
     try {
       const details = await Detail.findAll();
-  
-      const detailsWithImage = details.map(detail => {
-        // const imagePath = path.join(__dirname, '../public/images', detail.image.toString());
-        const imageUrl = '/images/' + detail.image;
-        return {
-          id: detail.id,
-          nama: detail.nama,
-          deskripsi: detail.deskripsi,
-          image: detail.image,
-          im: imageUrl,
-          created_at: detail.created_at,
-          updated_at: detail.updated_at
-        };
-      });
-  
+      if (!details) {
+        return res.status(404).json({ status: 404, message: "Data tidak ditemukan", data: null });
+      }
       res.status(200).json({ status: 200, message: "Data berhasil didapatkan", data: detailsWithImage });
     } catch (error) {
       res.status(500).json({ status: 500, message: error.message || "Server Error", data: null });

@@ -20,7 +20,7 @@ exports.create = async (req, res) => {
 
 exports.getAll = async (req, res) => {
     try {
-    const tokos = await Tokoh.findAll();
+        const tokos = await Tokoh.findAll();
         if (tokos.length == 0) {
             res.status(404).json({ status: 404, message: `Data tidak ditemukan, sepertinya anda belum menambahkan data Tokoh`, data: null });
             return;
