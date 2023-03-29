@@ -6,7 +6,7 @@ module.exports = (sequelize, Sequelize) => {
             primaryKey: true
         },
         image: {
-            type: Sequelize.BLOB('long'),
+            type: Sequelize.STRING,
             allowNull: false
         },
         nama: {
