@@ -1,12 +1,5 @@
 const db = require('../models');
 const Detail = db.details;
-const multer = require('multer');
-// const storage = multer.memoryStorage();
-// const upload = multer({ storage: storage }).single('image');
-const sharp = require('sharp');
-const { v4: uuidv4 } = require('uuid');
-const fs = require('fs');
-const path = require('path');
   
 exports.create = async (req, res) => {
   try {

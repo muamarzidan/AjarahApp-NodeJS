@@ -25,7 +25,7 @@ exports.getAll = async (req, res) => {
             res.status(404).json({ status: 404, message: `Data tidak ditemukan, sepertinya anda belum menambahkan data Tokoh`, data: null });
             return;
         }
-        res.json({ status: 200, message: "Permintaan anda sukses diproses, Semua data Tokoh berhasil ditemukan", data: seeTokoh });
+        res.json({ status: 200, message: "Permintaan anda sukses diproses, Semua data Tokoh berhasil ditemukan", data: tokos });
     } catch (error) {
         res.json({ status: 500, message: error.message || "Server Error", data: null });
     }
@@ -60,7 +60,7 @@ exports.update = async (req, res) => {
         return;
     }
     const { nama } = req.body;
-    const image = req.file.path ? req.file.path : null;
+    const image = req.file ? req.file.path : null;
     if (!nama && !image) {
         res.status(400).json({ status: 400, message: "Sepertinya ada data yang kosong, coba ulang dan tidak boleh kosong!", data: null });
         return;
@@ -85,7 +85,7 @@ exports.delete = async (req, res) => {
     }
     try {
         const deleteTokoh = await Tokoh.destroy({ where: { id: id } });
-        res.json({ status: 200, message: `Suksess data dengan id ${id} berhasil dihapus`, data: deleteTokoh });
+        res.json({ status: 200, message: `Permintaan anda sukses diproses, data dengan id ${id} berhasil dihapus`, data: deleteTokoh });
     } catch (error) {
         res.json({ status: 500, message: error.message || "Server Error", data: null });
     }

@@ -6,7 +6,7 @@
                 primaryKey: true
             },
             image: {
-                type: Sequelize.BLOB('long'),
+                type: Sequelize.STRING, //to be shown in frontend
                 allowNull: false
             },
             nama: {
