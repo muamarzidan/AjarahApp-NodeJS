@@ -2,7 +2,7 @@ const db = require("../models");
 const Peristiwa = db.peristiwas;
 
 exports.create = async (req, res) => {
-  if (!req.file || !req.body.kejadian || !req.body.deskripsi) {
+  if (!req.file || !req.body.kejadian || !req.body.deskripsi || !req.body.deskripsiOption || !req.body.deskripsiOption2) {
     res.status(400).send({ status: 400, message: "Sepertinya ada data yang tidak lengkap", data: null });
     return;
   }
@@ -10,6 +10,8 @@ exports.create = async (req, res) => {
     image: req.file.path,
     kejadian: req.body.kejadian,
     deskripsi: req.body.deskripsi,
+    deskripsiOption: req.body.deskripsiOption,
+    deskripsiOption2: req.body.deskripsiOption2,
   }
   
   // if wanna convert into base64
@@ -84,13 +86,13 @@ exports.update = async (req, res) => {
       res.json({ status: 404, message: `Data dengan id ${id} tidak ditemukan`, data: null });
       return;
     }
-    const { kejadian, deskripsi } = req.body;
+    const { kejadian, deskripsi,deskripsiOption,deskripsiOption2 } = req.body;
     const image = req.file ? req.file.path : null;
     if (!kejadian || !deskripsi || !image) {
       res.status(400).json({ status: 400, message: "Data tidak lengkap", data: null });
       return;
     }
-    const updatedPeristiwa = await Peristiwa.update({ kejadian, deskripsi, image, },{ where: { id: id }});
+    const updatedPeristiwa = await Peristiwa.update({ kejadian, deskripsi, deskripsiOption, deskripsiOption2, image, },{ where: { id: id }});
     res.json({ status: 200, message: `Permintaan anda sukses diproses, data dengan id ke${id} berhasil diperbarui`, data: updatedPeristiwa });
   } catch (error) {
     res.json({ status: 500, message: error.message || "Server Error", data: null });

@@ -5,7 +5,7 @@ const { Sequelize } = require('sequelize');
 exports.create = async (req, res) => {
     // better to validate the request body first
     if (!req.body.quiz || !req.body.a || !req.body.b || !req.body.c || !req.body.d || !req.body.key) {
-        res.status(400).send({
+        res.status(400).json({
             status: 400,
             message: "Sepertinya ada data yang kosong, coba ulang dan tidak boleh kosong!",
             data: null
@@ -23,9 +23,9 @@ exports.create = async (req, res) => {
 
     try {
         const newQuiz = await Quiz.create(quiz);
-        res.json({ status: 201, message: "Suksess, Data quiz berhasil ditambahkan", data: newQuiz });
+        res.json({ status: 201, message: "Permintaan anda sukses diproses, Data quiz berhasil ditambahkan", data: newQuiz });
     }catch (error) {
-        res.status(500).send({ status: 500, message: error.message || "Server Error", data: null });
+        res.status(500).json({ status: 500, message: error.message || "Server Error", data: null });
     }
 }
 
@@ -33,14 +33,14 @@ exports.getAll = async (req, res) => {
     const num = await Quiz.findAll();
 
     if (num == 0) {
-        res.status(404).send({ status: 404, message: `Data tidak ditemukan, sepertinya anda belum menambahkan data quiz`, data: null });
+        res.status(404).json({ status: 404, message: `Data tidak ditemukan, sepertinya anda belum menambahkan data quiz`, data: null });
         return;
     }
     try {
         const seeQuiz = await Quiz.findAll();
-        res.status(200).send({ status: 200, message: "Suksess, Semua data Quiz berhasil ditemukan", data: seeQuiz });
+        res.status(200).json({ status: 200, message: "Permintaan anda sukses diproses, Semua data Quiz berhasil ditemukan", data: seeQuiz });
     } catch (error) {
-        res.status(500).send({ status: 500, message: error.message || "Server Error", data: null });
+        res.status(500).json({ status: 500, message: error.message || "Server Error", data: null });
     }
 }
 
@@ -48,17 +48,17 @@ exports.getById = async (req, res) => {
     const id = req.params.id;
     const num = await Quiz.count({ where: { id: id } });
     if (isNaN(id)) {
-        res.status(400).send({ status: 400, message: "Id harus berupa angka", data: null });
+        res.status(400).json({ status: 400, message: "Id harus berupa angka", data: null });
         return;
     } else if (num == 0) {
-        res.status(404).send({ status: 404, message: `Data dengan id ${id} tidak ditemukan`, data: null });
+        res.status(404).json({ status: 404, message: `Data dengan id ${id} tidak ditemukan`, data: null });
         return;
     }
     try {
         const seeQuiz = await Quiz.findByPk(id, { rejectOnEmpty: true });
-        res.status(200).send({ status: 200, message: `Suksess data dengan ${id} berhasil ditemukan`, data: seeQuiz });
+        res.status(200).json({ status: 200, message: `Permintaan anda sukses diproses, data dengan ${id} berhasil ditemukan`, data: seeQuiz });
     }   catch (error){
-        res.status(500).send({ status: 500, message: error.message || "Server Error", data: null });
+        res.status(500).json({ status: 500, message: error.message || "Server Error", data: null });
     }
 }
 
@@ -66,10 +66,10 @@ exports.update = async (req, res) => {
     const id = req.params.id;
     const num = await Quiz.count({ where: { id: id } });
     if (isNaN(id)) {
-        res.status(400).send({ status: 400, message: "Id harus berupa angka", data: null });
+        res.status(400).json({ status: 400, message: "Id harus berupa angka", data: null });
         return;
     } else if (num == 0) {
-        res.status(404).send({ status: 404, message: `Data dengan id ${id} tidak ditemukan`, data: null });
+        res.status(404).json({ status: 404, message: `Data dengan id ${id} tidak ditemukan`, data: null });
         return;
     }
     try {
@@ -77,9 +77,9 @@ exports.update = async (req, res) => {
         updateQuiz.update(req.body, {
             where: {id}
         });
-        res.status(200).send({ status: 200, message: `Sukess, data dengan ${id} berhasil diupdate`, data: updateQuiz });
+        res.status(200).json({ status: 200, message: `Permintaan anda sukses diproses, data dengan ${id} berhasil diupdate`, data: updateQuiz });
     }   catch (error) {
-        res.status(500).send({ status: 500, message: error.message || "Server Error", data: null });
+        res.status(500).json({ status: 500, message: error.message || "Server Error", data: null });
     }
 }
 
@@ -87,18 +87,18 @@ exports.delete = async (req, res) => {
     const id = req.params.id;
     const num = await Quiz.count({ where: { id: id } });
     if (isNaN(id)) {
-        res.status(400).send({ status: 400, message: "Id harus berupa angka", data: null });
+        res.status(400).json({ status: 400, message: "Id harus berupa angka", data: null });
         return;
     } else if (num == 0) {
-        res.status(404).send({ status: 404, message: `Data dengan id ${id} tidak ditemukan`, data: null });
+        res.status(404).json({ status: 404, message: `Data dengan id ${id} tidak ditemukan`, data: null });
         return;
     }
     try {
         const deleteQuiz = await Quiz.findByPk(id, { rejectOnEmpty: true })
         deleteQuiz.destroy();
-        res.status(200).send({ status: 200, message: `Sukess, data dengan ${id} berhasil dihapus`, data: deleteQuiz });
+        res.status(200).json({ status: 200, message: `Permintaan anda sukses diproses, data dengan ${id} berhasil dihapus`, data: deleteQuiz });
     }   catch (error) {
-        res.status(500).send({ status: 500, message: error.message || "Server Error", data: null });
+        res.status(500).json({ status: 500, message: error.message || "Server Error", data: null });
     }
 }
     

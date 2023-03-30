@@ -12,6 +12,9 @@ const userRoute = require('.//routes/user');
 const tokohRoute = require('.//routes/tokoh');
 const peristiwaRoute = require('.//routes/peristiwa');
 const detailRoute = require('.//routes/detail');
+const homeRoute = require('.//routes/home');
+const quizzRoute = require('.//routes/quizz');
+const jobsheettRoute = require('.//routes/jobsheett');
 
 const fileStorage = multer.diskStorage({
     destination: function (req, file, cb) {
@@ -29,6 +32,7 @@ const fileStorage = multer.diskStorage({
           cb(null, false);
       }
   };
+  console.log(fileStorage);
 
 app.use(cors());
 app.use(express.json());
@@ -58,6 +62,9 @@ app.use('/api/user', userRoute);
 app.use('/api/pahlawan', tokohRoute);
 app.use('/api/peristiwa', peristiwaRoute);
 app.use('/api/detail', detailRoute);
+app.use('/api/home', homeRoute);
+app.use('/api/quizz', quizzRoute);
+app.use('/api/jobsheett', jobsheettRoute);
 
 app.listen(port, () => {
     console.log(`Server running on port ${port}`)

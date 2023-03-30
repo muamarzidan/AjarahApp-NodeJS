@@ -1,6 +1,5 @@
 const db = require("../models");
 const User = db.users;
-const { Sequelize } = require("sequelize");
 
 exports.create = async (req, res) => {
     if (!req.body.nama || !req.body.saran) {

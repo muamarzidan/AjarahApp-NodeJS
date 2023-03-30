@@ -24,5 +24,7 @@ db.details = require('./detail')(sequelize, Sequelize);
 db.tokohs = require('./tokoh')(sequelize, Sequelize);
 db.peristiwas = require('./peristiwa')(sequelize, Sequelize);
 db.users = require('./user')(sequelize, Sequelize);
+db.homes = require('./home')(sequelize, Sequelize);
+db.kuiz = require('./quizz')(sequelize, Sequelize);
 
 module.exports = db;

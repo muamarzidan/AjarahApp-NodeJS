@@ -1,30 +1,31 @@
 module.exports = (sequelize, Sequelize) => {
-    const Peristiwa = sequelize.define("peristiwa", {
+    const Home = sequelize.define("home", {
         id: {
             type: Sequelize.INTEGER,
             autoIncrement: true,
             primaryKey: true
         },
-        image: {
-            type: Sequelize.STRING, //tobe shown in frontend 
-            allowNull: false
-        },
-        kejadian: {
+        herotext: {
             type: Sequelize.STRING,
             allowNull: false
         },
-        deskripsi: {
+        title1: {
             type: Sequelize.STRING,
             allowNull: false
         },
-        deskripsiOption: {
+        title2: {
             type: Sequelize.STRING,
-            allowNull: true
+            allowNull: false
         },
-        deskripsiOption2: {
+        title3: {
             type: Sequelize.STRING,
-            allowNull: true
+            allowNull: false
+        },
+        title4: {
+            type: Sequelize.STRING,
+            allowNull: false
         },
     });
-    return Peristiwa;
-};
+    return Home;
+}
+
