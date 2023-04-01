@@ -14,15 +14,15 @@ module.exports = (sequelize, Sequelize) => {
             allowNull: false
         },
         deskripsi: {
-            type: Sequelize.STRING,
+            type: Sequelize.TEXT('long'),
             allowNull: false
         },
         deskripsiOption: {
-            type: Sequelize.STRING,
+            type: Sequelize.TEXT('long'),
             allowNull: true
         },
         deskripsiOption2: {
-            type: Sequelize.STRING,
+            type: Sequelize.TEXT('long'),
             allowNull: true
         },
     });

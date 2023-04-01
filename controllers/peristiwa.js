@@ -86,13 +86,12 @@ exports.update = async (req, res) => {
       res.json({ status: 404, message: `Data dengan id ${id} tidak ditemukan`, data: null });
       return;
     }
-    const { kejadian, deskripsi,deskripsiOption,deskripsiOption2 } = req.body;
-    const image = req.file ? req.file.path : null;
-    if (!kejadian || !deskripsi || !image) {
-      res.status(400).json({ status: 400, message: "Data tidak lengkap", data: null });
+    const { kejadian, deskripsi, deskripsiOption, deskripsiOption2 } = req.body;
+    if (!kejadian || !deskripsi || !deskripsiOption || !deskripsiOption2) {
+      res.status(400).json({ status: 400, message: "Data tidak lengkap bro", data: null });
       return;
     }
-    const updatedPeristiwa = await Peristiwa.update({ kejadian, deskripsi, deskripsiOption, deskripsiOption2, image, },{ where: { id: id }});
+    const updatedPeristiwa = await Peristiwa.update({ kejadian, deskripsi, deskripsiOption, deskripsiOption2},{ where: { id: id }});
     res.json({ status: 200, message: `Permintaan anda sukses diproses, data dengan id ke${id} berhasil diperbarui`, data: updatedPeristiwa });
   } catch (error) {
     res.json({ status: 500, message: error.message || "Server Error", data: null });
