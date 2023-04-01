@@ -1,4 +1,4 @@
-const jobSheetController = require('../controllers/jobsheet')
+const jobSheetController = require('../controllers/jobsheett')
 const router = require('express').Router()
 
 router.post('/submitOne', jobSheetController.submitOne)

@@ -7,8 +7,8 @@ exports.submitOne = async (req, res) => {
 
     try {
         const quiz = await Quiz.findByPk(quizId)
-        console.log(quiz)
-        if (quiz && quiz.key === answer     ) {
+        console.log(typeof quiz)
+        if (quiz.key === answer     ) {
             res.status(200).send({
                 message: 'Jawabanmu benar, selamat!'
             })
@@ -27,14 +27,14 @@ exports.submitOne = async (req, res) => {
 
 exports.submitMany = async (req, res) => {
 
-    const { quizIds, answers } = req.body
-
+    const { quizId, answers } = req.body;
     try {
         const quizzes = await Quiz.findAll({
             where: {
-                id: quizIds
+                id: quizId
             }
         })
+        console.log(quizzes)
 
         let correct = 0
         let wrong = 0
@@ -42,11 +42,10 @@ exports.submitMany = async (req, res) => {
         quizzes.forEach((quiz, index) => {
             if (quiz.key === answers[index]) {
                 correct++
-            } else {
+            }else {
                 wrong++
             }
         })
-
         res.status(200).send({
             correct,
             wrong

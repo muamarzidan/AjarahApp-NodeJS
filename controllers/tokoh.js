@@ -55,7 +55,7 @@ exports.update = async (req, res) => {
     if (isNaN(id)) {
         res.status(400).json({ status: 400, message: "Id harus berupa angka", data: null });
         return;
-    } else if (num == 0) {
+    } else if (num == 0) {  
         res.status(404).json({ status: 404, message: `Data dengan id ${id} tidak ditemukan`, data: null });
         return;
     }

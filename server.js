@@ -15,6 +15,7 @@ const detailRoute = require('.//routes/detail');
 const homeRoute = require('.//routes/home');
 const quizzRoute = require('.//routes/quizz');
 const jobsheettRoute = require('.//routes/jobsheett');
+const timelineRoute = require('.//routes/timeline');
 
 const fileStorage = multer.diskStorage({
     destination: function (req, file, cb) {
@@ -65,6 +66,7 @@ app.use('/api/detail', detailRoute);
 app.use('/api/home', homeRoute);
 app.use('/api/quizz', quizzRoute);
 app.use('/api/jobsheett', jobsheettRoute);
+app.use('/api/timeline', timelineRoute);
 
 app.listen(port, () => {
     console.log(`Server running on port ${port}`)
