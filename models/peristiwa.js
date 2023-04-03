@@ -9,7 +9,11 @@ module.exports = (sequelize, Sequelize) => {
             type: Sequelize.STRING, //tobe shown in frontend 
             allowNull: false
         },
-        kejadian: {
+        tahun: {
+            type: Sequelize.STRING,
+            allowNull: false
+        },
+        detail_tahun: {
             type: Sequelize.STRING,
             allowNull: false
         },

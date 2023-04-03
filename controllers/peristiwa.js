@@ -2,13 +2,14 @@ const db = require("../models");
 const Peristiwa = db.peristiwas;
 
 exports.create = async (req, res) => {
-  if (!req.file || !req.body.kejadian || !req.body.deskripsi || !req.body.deskripsiOption || !req.body.deskripsiOption2) {
+  if (!req.file || !req.body.tahun || !req.body.detail_tahun || !req.body.deskripsi || !req.body.deskripsiOption || !req.body.deskripsiOption2) {
     res.status(400).send({ status: 400, message: "Sepertinya ada data yang tidak lengkap", data: null });
     return;
   }
   const NewPeristiwa = {
     image: req.file.path,
-    kejadian: req.body.kejadian,
+    tahun: req.body.tahun,
+    detail_tahun: req.body.detail_tahun,
     deskripsi: req.body.deskripsi,
     deskripsiOption: req.body.deskripsiOption,
     deskripsiOption2: req.body.deskripsiOption2,
@@ -86,12 +87,12 @@ exports.update = async (req, res) => {
       res.json({ status: 404, message: `Data dengan id ${id} tidak ditemukan`, data: null });
       return;
     }
-    const { kejadian, deskripsi, deskripsiOption, deskripsiOption2 } = req.body;
-    if (!kejadian || !deskripsi || !deskripsiOption || !deskripsiOption2) {
+    const { tahun, detail_tahun, deskripsi, deskripsiOption, deskripsiOption2 } = req.body;
+    if (!tahun || !detail_tahun || !deskripsi || !deskripsiOption || !deskripsiOption2) {
       res.status(400).json({ status: 400, message: "Data tidak lengkap bro", data: null });
       return;
     }
-    const updatedPeristiwa = await Peristiwa.update({ kejadian, deskripsi, deskripsiOption, deskripsiOption2},{ where: { id: id }});
+    const updatedPeristiwa = await Peristiwa.update({ tahun, detail_tahun, deskripsi, deskripsiOption, deskripsiOption2},{ where: { id: id }});
     res.json({ status: 200, message: `Permintaan anda sukses diproses, data dengan id ke${id} berhasil diperbarui`, data: updatedPeristiwa });
   } catch (error) {
     res.json({ status: 500, message: error.message || "Server Error", data: null });
