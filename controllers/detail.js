@@ -65,14 +65,23 @@ exports.update = async (req, res) => {
       res.json(404).json({ status: 404, message: `Data dengan id ${id} tidak ditemukan`, data: null });
       return;
     } 
-    const { nama, pasangan, tempat_lahir, tanggal_lahir, wafat, deskripsi } = req.body;
-    const image = req.file ? req.file.path : null;
-    if (!nama || !pasangan || !tempat_lahir || !tanggal_lahir || !wafat || !deskripsi || !image) {
-      res.status(400).json({ status: 400, message: "Sepertinya ada data yang tidak lengkap", data: null });
-      return;
+    // const { nama, pasangan, tempat_lahir, tanggal_lahir, wafat, deskripsi } = req.body;
+    // const image = req.file ? req.file.path : null;
+    // if (!nama || !pasangan || !tempat_lahir || !tanggal_lahir || !wafat || !deskripsi || !image) {
+    //   res.status(400).json({ status: 400, message: "Sepertinya ada data yang tidak lengkap", data: null });
+    //   return;
+    // }
+
+    const newDetail = {
+      nama: req.body.nama,
+      pasangan: req.body.pasangan,
+      tempat_lahir: req.body.tempat_lahir,
+      tanggal_lahir: req.body.tanggal_lahir,
+      wafat: req.body.wafat,
+      deskripsi: req.body.deskripsi,
     }
     try {
-      const updateDetail = await Detail.update({nama, pasangan, tempat_lahir, tanggal_lahir, wafat, deskripsi, image }, { where: { id: id } });
+      const updateDetail = await Detail.update(newDetail, { where: { id: id } });
       res.json({ message: `Permintaan anda sukses diproses, Data dengan id ${id} berhasil diupdate`, data: updateDetail });
     }catch (error) {
       res.json({ status: 500, message: error.message || "Server Error", data: null });

@@ -2,7 +2,7 @@ const db = require("../models");
 const User = db.users;
 
 exports.create = async (req, res) => {
-    if (!req.body.nama || !req.body.saran) {
+    if (!req.body.nama || !req.body.saran || !req.body.email || !req.body.type) {
         res.status(400).send({
             status: 400,
             message: "Sepertinya ada data yang kosong, coba ulang dan tidak boleh kosong!",
@@ -12,7 +12,9 @@ exports.create = async (req, res) => {
     }
     const usermasukan = {
         nama: req.body.nama,
-        saran: req.body.saran
+        saran: req.body.saran,
+        email: req.body.email,
+        type: req.body.type
     };
 
     try {

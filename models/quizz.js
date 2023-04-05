@@ -1,3 +1,5 @@
+// const { DataTypes } = require("sequelize");
+
     module.exports = (sequelize, Sequelize) => {
         const Kuiz = sequelize.define('kuiz', {
             id: {
@@ -9,7 +11,8 @@
                 type: Sequelize.STRING
             },
             options: {
-                type: Sequelize.JSON
+                type: Sequelize.STRING,
+                allowNull: false
             },
             key: {
                 type: Sequelize.STRING

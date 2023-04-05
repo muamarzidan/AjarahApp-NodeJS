@@ -52,6 +52,8 @@ exports.submitMany = async (req, res) => {
         }
         res.status(200).json({
             message: "Jawaban benar " + benar + " dari " + totalsoal + " soal",
+            benar: benar,
+            salah: totalsoal - benar
         })
     }   catch (error) {
         res.status(500).json({
