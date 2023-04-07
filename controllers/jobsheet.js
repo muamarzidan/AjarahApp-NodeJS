@@ -46,7 +46,7 @@ exports.submitMany = async (req, res) => {
                 order: [ [ 'id', 'DESC' ]]
             });
             if (quiz.key == jobsheet.answer[i]) {
-                benar = benar + 1;
+                benar = benar + 10;
                 // benar = benar++;
             }
         }

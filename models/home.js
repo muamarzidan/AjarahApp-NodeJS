@@ -6,7 +6,7 @@ module.exports = (sequelize, Sequelize) => {
             primaryKey: true
         },
         herotext: {
-            type: Sequelize.STRING,
+            type: Sequelize.TEXT('long'),
             allowNull: false
         },
         title1: {

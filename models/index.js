@@ -18,14 +18,13 @@ const sequelize = new Sequelize(
 const db = {};
 
 db.Sequelize = Sequelize;
-db.sequelize = sequelize;
+db.sequelize = sequelize; add .
 db.quizs = require('./quiz')(sequelize, Sequelize);
 db.details = require('./detail')(sequelize, Sequelize);
-db.tokohs = require('./tokoh')(sequelize, Sequelize);
+// db.tokohs = require('./tokoh')(sequelize, Sequelize);
 db.peristiwas = require('./peristiwa')(sequelize, Sequelize);
 db.users = require('./user')(sequelize, Sequelize);
 db.homes = require('./home')(sequelize, Sequelize);
-db.kuiz = require('./quizz')(sequelize, Sequelize);
-db.timelines = require('./timeline')(sequelize, Sequelize);
+// db.timelines = require('./timeline')(sequelize, Sequelize);
 
 module.exports = db;

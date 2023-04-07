@@ -9,13 +9,11 @@ const port = 5000;
 const quizRoute = require('.//routes/quiz');
 const jobsheetRoute = require('.//routes/jobsheet');
 const userRoute = require('.//routes/user');
-const tokohRoute = require('.//routes/tokoh');
+// const tokohRoute = require('.//routes/tokoh');
 const peristiwaRoute = require('.//routes/peristiwa');
 const detailRoute = require('.//routes/detail');
 const homeRoute = require('.//routes/home');
-const quizzRoute = require('.//routes/quizz');
-const jobsheettRoute = require('.//routes/jobsheett');
-const timelineRoute = require('.//routes/timeline');
+// const timelineRoute = require('.//routes/timeline');
 
 const fileStorage = multer.diskStorage({
     destination: function (req, file, cb) {
@@ -60,13 +58,11 @@ app.get('/', (req, res) => {
 app.use('/api/quiz', quizRoute);
 app.use('/api/jobsheet', jobsheetRoute);
 app.use('/api/user', userRoute);
-app.use('/api/pahlawan', tokohRoute);
+// app.use('/api/pahlawan', tokohRoute);
 app.use('/api/peristiwa', peristiwaRoute);
 app.use('/api/detail', detailRoute);
 app.use('/api/home', homeRoute);
-app.use('/api/quizz', quizzRoute);
-app.use('/api/jobsheett', jobsheettRoute);
-app.use('/api/timeline', timelineRoute);
+// app.use('/api/timeline', timelineRoute);
 
 app.listen(port, () => {
     console.log(`Server running on port ${port}`)
