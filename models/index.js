@@ -18,7 +18,7 @@ const sequelize = new Sequelize(
 const db = {};
 
 db.Sequelize = Sequelize;
-db.sequelize = sequelize; add .
+db.sequelize = sequelize;
 db.quizs = require('./quiz')(sequelize, Sequelize);
 db.details = require('./detail')(sequelize, Sequelize);
 // db.tokohs = require('./tokoh')(sequelize, Sequelize);

@@ -74,3 +74,21 @@ exports.delete = async (req, res) => {
         res.status(500).send({ status: 500, message: error.message || "Server Error", data: null });
     }
 }
+
+exports.update = async (req, res) => {
+    const id = req.params.id;
+    const num = await User.count({ where: { id: id } });
+    if (isNaN(id)) {
+        res.status(400).send({ status: 400, message: "Id harus berupa angka", data: null });
+        return;
+    } else if (num == 0) {
+        res.status(404).send({ status: 404, message: `Data dengan id ${id} tidak ditemukan`, data: null });
+        return;
+    }
+    try {
+        const updateUsermasukan = await User.update(req.body, { where: { id: id } });
+        res.status(200).send({ status: 200, message: `Suksess data dengan ${id} berhasil diupdate`, data: updateUsermasukan });
+    }   catch (error) {
+        res.status(500).send({ status: 500, message: error.message || "Server Error", data: null });
+    }
+}
